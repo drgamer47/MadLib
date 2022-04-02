@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+
+<head>
+<link href='https://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Shadows+Into+Light' rel='stylesheet' type='text/css'>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<style>
+body {
+    text-align: center;
+    font-family: 'Fjalla One';
+    font-size: 20px;
+    background: #e6eaf0;
+}
+button {
+    margin: 40px;
+}
+input {
+    font-size: 24px;  
+}
+fill {
+    background: white;
+    color: red;
+    border-bottom: 2px black solid;
+    font-family: 'Shadows Into Light';
+    padding: 0 6px;
+    margin: 4px;
+    
+@media (max-width:500px) {
+body{
+        background: white;}
+body {
+    text-align: center;
+    font-family: 'Fjalla One';
+    font-size: 20px;
+    background: #e6eaf0;
+}
+button {
+    margin: 40px;
+}
+input {
+    font-size: 24px;  
+}
+fill {
+    background: white;
+    color: red;
+    border-bottom: 2px black solid;
+    font-family: 'Shadows Into Light';
+    padding: 0 6px;
+    margin: 4px;
+    }
+}    
+</style>
+</head>
+<body>
+    <h1>The Business</h1>
+<div class="prompt"></div>
+
+<button id="NextButton">Next</button>
+<br>    
+<button id="Reload">Reset</button>
+<script>
+// List of prompts for the user
+var prompts = [
+  'Gender',
+  'Type of Product',
+  'Pronoun',
+  'Product',
+  'Job',
+  'Adjective',
+  'Percentage \(No % sign\)',
+  '# of Years',
+  'Amount of Money \(No $ Sign\)',
+  '# of Years',
+  'Amount of Money \(No $ sign\)',
+  'Business worth \(No $ sign\)',
+  'Yes or No'
+];
+
+var answers=[];
+// Keep track of current prompt we're on
+var currentPrompt = 0;
+
+// A function that will call the next prompt
+var nextPrompt = function() {
+  //if there's no answer in the form
+  if (currentPrompt != 0){
+    answers.push($('input').val());
+  }
+	// if there is a next prompt
+	if (currentPrompt < prompts.length) {
+		// put first prompt in all html elements with class 
+		$('.prompt').html(prompts[currentPrompt] +'<br><input type="text">');
+		// move the next prompt into variable currentPrompt 
+		currentPrompt = currentPrompt + 1;
+	}
+	//or else if we're at the end of the array
+	else {
+		// put a new message into the html.
+		showFinal();
+	}
+}
+
+//puts user answers into HTML
+var showFinal = function() {
+  $('.prompt').html('There was once a <span class="fill">'+answers[0]+'</span> who deeply wanted to become a <span class="fill">'+answers[1]+'</span> seller. <span class="fill">'+answers[2]+'</span> worked hard, made start-up money using <span class="fill">'+answers[3]+'</span>, and had restless nights studying and working as a <span class="fill">'+answers[4]+'</span>.<br><br>'+
+  'One day, a <span class="fill">'+answers[5]+'</span> man came up and asked if they were looking for funding. They offered $200,000 if they got <span class="fill">'+answers[6]+'</span>% of the profit that company makes. They say, \"yes!!\"<br><br>'+
+ 'Little did they know, that business would become a top 10 worldwide business. Within <span class="fill">'+answers[7]+'</span> years, you made $<span class="fill">'+answers[8]+'</span>. After another <span class="fill">'+answers[9]+'</span>, their company is now worth $<span class="fill">'+answers[10]+'</span>.<br><br>'+
+'Then one day, they get an offer for someone to buy the business for $<span class="fill">'+answers[11]+'</span>. They say "<span class="fill">'+answers[12]+'</span>"<br><br>');
+  $('button').hide();
+}
+// run nextPrompt function when button is clicked
+$('#NextButton').click(function() {
+    nextPrompt();
+}   );    
+document.addEventListener('keyup', (e) => {
+    console.log(e)
+    if(e.keyCode === 13){
+	   nextPrompt();
+    }  
+});
+$('#Reload').click(function() {
+    window.location.reload();
+}); 
+// Show the first prompt as soon as js loads
+nextPrompt();
+//showFinal();
+</script>
+
+</body>
